@@ -22,8 +22,13 @@ from models import (
 )
 from services import greedy_allocate_tables, cancel_and_replace, get_priority_queue
 
+import os
+
 app = Flask(__name__)
 app.secret_key = 'smsv_restaurant_secret_key_2026'
+
+# Initialize database on startup (needed for Render/gunicorn)
+init_db()
 
 
 # ═══════════════════════════════════════════════════════
@@ -228,9 +233,9 @@ def api_stats():
 #  RUN
 # ═══════════════════════════════════════════════════════
 if __name__ == '__main__':
-    init_db()
+    port = int(os.environ.get('PORT', 5000))
     print("\n" + "=" * 55)
     print("   SMSV Restaurant – Smart Booking System")
-    print("   Running at http://127.0.0.1:5000")
+    print(f"   Running at http://127.0.0.1:{port}")
     print("=" * 55 + "\n")
-    app.run(debug=True, port=5000)
+    app.run(debug=True, host='0.0.0.0', port=port)
