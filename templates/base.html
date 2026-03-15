@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SMSV Restaurant – Experience the Tradition of India. Smart Priority Based Booking System for premium Indian dining.">
+    <title>{% block title %}SMSV Restaurant{% endblock %}</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="main-nav">
+        <div class="nav-container">
+            <a href="{{ url_for('home') }}" class="nav-logo">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="SMSV Logo" class="nav-logo-img">
+                <span class="nav-logo-text">SMSV<span class="nav-logo-accent"> Restaurant</span></span>
+            </a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="{{ url_for('home') }}"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="{{ url_for('book_table') }}"><i class="fas fa-utensils"></i> Book Table</a></li>
+                {% if session.get('admin') %}
+                <li><a href="{{ url_for('admin_dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="{{ url_for('booking_queue') }}"><i class="fas fa-list-ol"></i> Queue</a></li>
+                <li><a href="{{ url_for('table_allocation') }}"><i class="fas fa-th"></i> Allocate</a></li>
+                <li><a href="{{ url_for('cancellation_management') }}"><i class="fas fa-ban"></i> Cancellations</a></li>
+                <li><a href="{{ url_for('admin_logout') }}" class="nav-btn nav-btn-outline"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                {% else %}
+                <li><a href="{{ url_for('admin_login') }}" class="nav-btn"><i class="fas fa-lock"></i> Admin Login</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-container">
+        {% for category, message in messages %}
+        <div class="flash-message flash-{{ category }}" onclick="this.remove()">
+            <i class="fas {% if category == 'success' %}fa-check-circle{% elif category == 'error' %}fa-exclamation-circle{% elif category == 'info' %}fa-info-circle{% else %}fa-bell{% endif %}"></i>
+            <span>{{ message }}</span>
+            <button class="flash-close">&times;</button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="SMSV" class="footer-logo">
+                    <p class="footer-desc">Experience the finest Indian cuisine with our smart, technology-driven reservation system.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="{{ url_for('home') }}">Home</a></li>
+                        <li><a href="{{ url_for('book_table') }}">Book a Table</a></li>
+                        <li><a href="{{ url_for('admin_login') }}">Admin Portal</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Spice Lane, Mumbai</li>
+                        <li><i class="fas fa-phone"></i> +91 98765 43210</li>
+                        <li><i class="fas fa-envelope"></i> info@smsvrestaurant.com</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Hours</h4>
+                    <ul>
+                        <li>Mon – Fri: 11 AM – 11 PM</li>
+                        <li>Sat – Sun: 10 AM – 12 AM</li>
+                        <li>Happy Hour: 4 PM – 7 PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 SMSV Restaurant – Smart Priority Based Booking System</p>
+                <p class="footer-tech">Built with Flask &bull; Priority Scheduling &bull; Greedy Algorithm &bull; Backtracking</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile nav toggle
+        document.getElementById('nav-toggle').addEventListener('click', function() {
+            document.getElementById('nav-links').classList.toggle('active');
+            this.classList.toggle('active');
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('main-nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Auto-dismiss flash messages
+        setTimeout(() => {
+            document.querySelectorAll('.flash-message').forEach(el => {
+                el.style.animation = 'slideOut 0.4s ease forwards';
+                setTimeout(() => el.remove(), 400);
+            });
+        }, 5000);
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

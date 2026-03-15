@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% block title %}Book a Table – SMSV Restaurant{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="page-header-bg">
+        <img src="{{ url_for('static', filename='images/interior.jpg') }}" alt="Interior">
+        <div class="page-header-overlay"></div>
+    </div>
+    <div class="container">
+        <h1>Book a <span class="text-gold">Table</span></h1>
+        <p>Reserve your spot for an unforgettable Indian dining experience</p>
+    </div>
+</section>
+
+<section class="booking-section">
+    <div class="container">
+        <div class="booking-layout">
+            <!-- Booking Form -->
+            <div class="booking-form-card">
+                <div class="card-header-accent"></div>
+                <h2><i class="fas fa-calendar-plus"></i> Reservation Details</h2>
+                <form method="POST" action="{{ url_for('book_table') }}" id="booking-form">
+                    <div class="form-group">
+                        <label for="customer_name"><i class="fas fa-user"></i> Full Name</label>
+                        <input type="text" id="customer_name" name="customer_name" placeholder="Enter your full name"
+                            required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="people_count"><i class="fas fa-users"></i> Number of Guests</label>
+                            <select id="people_count" name="people_count" required>
+                                <option value="1">1 Person</option>
+                                <option value="2" selected>2 People</option>
+                                <option value="3">3 People</option>
+                                <option value="4">4 People</option>
+                                <option value="5">5 People</option>
+                                <option value="6">6 People</option>
+                                <option value="7">7 People</option>
+                                <option value="8">8 People</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="booking_type"><i class="fas fa-tags"></i> Booking Type</label>
+                            <select id="booking_type" name="booking_type" required>
+                                <option value="VIP">👑 VIP – Unlimited Time</option>
+                                <option value="Pre-Booking" selected>📅 Pre-Booking – 2 Hours</option>
+                                <option value="On-Spot">⏰ On-Spot – 1 Hour</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="booking_date"><i class="fas fa-calendar"></i> Date</label>
+                            <input type="date" id="booking_date" name="booking_date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="booking_time"><i class="fas fa-clock"></i> Time</label>
+                            <input type="time" id="booking_time" name="booking_time" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit-btn">
+                        <i class="fas fa-check-circle"></i> Confirm Reservation
+                    </button>
+                </form>
+            </div>
+
+            <!-- Info Sidebar -->
+            <div class="booking-info">
+                <div class="info-card">
+                    <h3><i class="fas fa-info-circle"></i> Welcome to SMSV Restaurant</h3>
+                    <h3>We are Happy to Serve you!</h3>
+                    <img src="{{ url_for('static', filename='images/hero.jpg') }}" alt="food">
+
+                    <!--div class="info-tier">
+                        <div class="tier-header tier-vip-header">
+                            <i class="fas fa-crown"></i> VIP
+                        </div>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Highest Priority</li>
+                            <li><i class="fas fa-check"></i> Unlimited Dining Time</li>
+                            <li><i class="fas fa-check"></i> Premium Table Selection</li>
+                            <li><i class="fas fa-check"></i> Complimentary Welcome Drink</li>
+                        </ul>
+                    </div>
+                    <div class="info-tier">
+                        <div class="tier-header tier-pre-header">
+                            <i class="fas fa-calendar-check"></i> Pre-Booking
+                        </div>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Medium Priority</li>
+                            <li><i class="fas fa-check"></i> 2 Hour Dining Window</li>
+                            <li><i class="fas fa-check"></i> Guaranteed Seating</li>
+                        </ul>
+                    </div-->
+                    <!--div class="info-tier">
+                        <div class="tier-header tier-spot-header">
+                            <i class="fas fa-clock"></i> On-Spot
+                        </div>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Walk-in Friendly</li>
+                            <li><i class="fas fa-check"></i> 1 Hour Dining Window</li>
+                            <li><i class="fas fa-check"></i> Subject to Availability</li>
+                        </ul>
+                    </div-->
+                </div>
+
+                <!--div class="info-card algorithm-card">
+                    <h3><i class="fas fa-cogs"></i> How It Works</h3>
+                    <div class="algo-step">
+                        <div class="algo-num">1</div>
+                        <div>
+                            <strong>Submit Booking</strong>
+                            <p>Your reservation enters the priority queue</p>
+                        </div>
+                    </div>
+                    <div class="algo-step">
+                        <div class="algo-num">2</div>
+                        <div>
+                            <strong>Priority Assigned</strong>
+                            <p>VIP → Pre-Booking → On-Spot</p>
+                        </div>
+                    </div>
+                    <div class="algo-step">
+                        <div class="algo-num">3</div>
+                        <div>
+                            <strong>Greedy Allocation</strong>
+                            <p>Best-fit table assigned automatically</p>
+                        </div>
+                    </div>
+                    <div class="algo-step">
+                        <div class="algo-num">4</div>
+                        <div>
+                            <strong>Confirmation</strong>
+                            <p>You're all set for your dining experience!</p>
+                        </div>
+                    </div>
+                </div>
+            </div-->
+            </div>
+        </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Set minimum date to today
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('booking_date').setAttribute('min', today);
+    document.getElementById('booking_date').value = today;
+
+    // Dynamic type info
+    const typeSelect = document.getElementById('booking_type');
+    typeSelect.addEventListener('change', function () {
+        const tiers = document.querySelectorAll('.info-tier');
+        tiers.forEach(t => t.classList.remove('active'));
+        const idx = this.selectedIndex;
+        if (tiers[idx]) tiers[idx].classList.add('active');
+    });
+
+    // Form validation animation
+    document.getElementById('booking-form').addEventListener('submit', function (e) {
+        const btn = document.getElementById('submit-btn');
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+        btn.disabled = true;
+    });
+</script>
+{% endblock %}

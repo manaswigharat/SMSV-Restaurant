@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% block title %}Cancellation Management – SMSV Restaurant{% endblock %}
+
+{% block content %}
+<section class="page-header page-header-sm">
+    <div class="page-header-bg">
+        <img src="{{ url_for('static', filename='images/interior.jpg') }}" alt="Interior">
+        <div class="page-header-overlay"></div>
+    </div>
+    <div class="container">
+        <h1>Cancellation <span class="text-gold">Management</span></h1>
+        <p>Automatically finds replacement bookings</p>
+    </div>
+</section>
+
+<section class="cancellation-section">
+    <div class="container">
+        <!-- Algorithm Explanation -->
+        <!--div class="algo-explainer">
+            <div class="algo-explainer-header">
+                <i class="fas fa-undo-alt"></i>
+                <h3>Backtracking Algorithm (AOA Concept)</h3>
+            </div>
+            <p>When a booking is cancelled, the system uses a <strong>Backtracking Algorithm</strong> to find a valid replacement from the waiting queue.</p>
+            <div class="backtrack-flow">
+                <div class="flow-step">
+                    <div class="flow-icon"><i class="fas fa-times-circle"></i></div>
+                    <span>Booking Cancelled</span>
+                </div>
+                <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+                <div class="flow-step">
+                    <div class="flow-icon"><i class="fas fa-chair"></i></div>
+                    <span>Table Freed</span>
+                </div>
+                <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+                <div class="flow-step">
+                    <div class="flow-icon"><i class="fas fa-search"></i></div>
+                    <span>Backtrack Queue</span>
+                </div>
+                <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+                <div class="flow-step">
+                    <div class="flow-icon"><i class="fas fa-check-circle"></i></div>
+                    <span>Replace & Notify</span>
+                </div>
+            </div>
+            <div class="backtrack-constraints">
+                <h4>Constraints checked during backtracking:</h4>
+                <ul>
+                    <li><i class="fas fa-users"></i> Group size ≤ table capacity</li>
+                    <li><i class="fas fa-calendar"></i> Same booking date</li>
+                    <li><i class="fas fa-clock"></i> Compatible time slot (within 2 hours)</li>
+                </ul>
+            </div>
+        </div-->
+
+        <!-- Bookings Table -->
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h3><i class="fas fa-list"></i> All Bookings</h3>
+                <span class="card-badge">{{ bookings|length }}</span>
+            </div>
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Customer</th>
+                            <th>Guests</th>
+                            <th>Type</th>
+                            <th>Priority</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Table</th>
+                            <th>Status</th>
+                            <th>Notification</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for b in bookings %}
+                        <tr
+                            class="{{ 'row-cancelled' if b.status == 'Cancelled' else '' }} {{ 'row-upgraded' if b.status == 'Upgraded' else '' }}">
+                            <td>#{{ b.id }}</td>
+                            <td><strong>{{ b.customer_name }}</strong></td>
+                            <td>{{ b.people_count }}</td>
+                            <td><span class="badge badge-{{ b.booking_type|lower|replace('-', '') }}">{{ b.booking_type
+                                    }}</span></td>
+                            <td><span class="priority-badge priority-{{ b.priority }}">P{{ b.priority }}</span></td>
+                            <td>{{ b.booking_date }}</td>
+                            <td>{{ b.booking_time }}</td>
+                            <td>{% if b.table_number %}#{{ b.table_number }}{% else %}<span
+                                    class="text-muted">—</span>{% endif %}</td>
+                            <td><span class="status-badge status-{{ b.status|lower }}">{{ b.status }}</span></td>
+                            <td>
+                                {% if b.notification %}
+                                <span class="notification-text">{{ b.notification }}</span>
+                                {% else %}
+                                <span class="text-muted">—</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if b.status in ['Confirmed', 'Waiting', 'Upgraded'] %}
+                                <form method="POST" action="{{ url_for('cancel_booking_route', booking_id=b.id) }}"
+                                    style="display:inline"
+                                    onsubmit="return confirm('Cancel booking #{{ b.id }}? The backtracking algorithm will search for a replacement.')">
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-ban"></i> Cancel & Backtrack
+                                    </button>
+                                </form>
+                                {% elif b.status == 'Cancelled' %}
+                                <span class="text-muted">Cancelled</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% if not bookings %}
+                        <tr>
+                            <td colspan="11" class="text-center text-muted">No bookings found</td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="page-actions">
+            <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

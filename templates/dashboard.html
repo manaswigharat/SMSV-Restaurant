@@ -1,0 +1,216 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard – SMSV Restaurant{% endblock %}
+
+{% block content %}
+<section class="page-header page-header-sm">
+    <div class="page-header-bg">
+        <img src="{{ url_for('static', filename='images/interior.jpg') }}" alt="Interior">
+        <div class="page-header-overlay"></div>
+    </div>
+    <div class="container">
+        <h1>Admin <span class="text-gold">Dashboard</span></h1>
+        <p>Manage bookings, tables, and monitor restaurant performance</p>
+    </div>
+</section>
+
+<section class="dashboard-section">
+    <div class="container">
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card stat-primary">
+                <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+                <div class="stat-info">
+                    <span class="stat-number">{{ stats.total_bookings }}</span>
+                    <span class="stat-label">Total Bookings</span>
+                </div>
+            </div>
+            <div class="stat-card stat-gold">
+                <div class="stat-icon"><i class="fas fa-crown"></i></div>
+                <div class="stat-info">
+                    <span class="stat-number">{{ stats.vip_bookings }}</span>
+                    <span class="stat-label">VIP Bookings</span>
+                </div>
+            </div>
+            <div class="stat-card stat-green">
+                <div class="stat-icon"><i class="fas fa-check-double"></i></div>
+                <div class="stat-info">
+                    <span class="stat-number">{{ stats.confirmed_bookings }}</span>
+                    <span class="stat-label">Confirmed</span>
+                </div>
+            </div>
+            <div class="stat-card stat-orange">
+                <div class="stat-icon"><i class="fas fa-hourglass-half"></i></div>
+                <div class="stat-info">
+                    <span class="stat-number">{{ stats.waiting_bookings }}</span>
+                    <span class="stat-label">Waiting</span>
+                </div>
+            </div>
+            <div class="stat-card stat-red">
+                <div class="stat-icon"><i class="fas fa-times-circle"></i></div>
+                <div class="stat-info">
+                    <span class="stat-number">{{ stats.cancelled_bookings }}</span>
+                    <span class="stat-label">Cancelled</span>
+                </div>
+            </div>
+            <div class="stat-card stat-blue">
+                <div class="stat-icon"><i class="fas fa-chair"></i></div>
+                <div class="stat-info">
+                    <span class="stat-number">{{ stats.occupied_tables }}/{{ stats.total_tables }}</span>
+                    <span class="stat-label">Tables Occupied</span>
+                </div>
+            </div>
+            <div class="stat-card stat-purple">
+                <div class="stat-icon"><i class="fas fa-chart-pie"></i></div>
+                <div class="stat-info">
+                    <span class="stat-number">{{ stats.utilization }}%</span>
+                    <span class="stat-label">Utilization</span>
+                </div>
+            </div>
+            <!--div class="stat-card stat-emerald">
+                <div class="stat-icon"><i class="fas fa-rupee-sign"></i></div>
+                <div class="stat-info">
+                    <span class="stat-number">₹{{ "{:,}".format(stats.total_revenue) }}</span>
+                    <span class="stat-label">Revenue</span>
+                </div>
+            </div-->
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <h2 class="section-title-sm"><i class="fas fa-bolt"></i> Quick Actions</h2>
+            <div class="action-grid">
+                <a href="{{ url_for('table_allocation') }}" class="action-btn action-allocate">
+                    <i class="fas fa-th-large"></i>
+                    <span>Run Greedy Allocation</span>
+                </a>
+                <a href="{{ url_for('booking_queue') }}" class="action-btn action-queue">
+                    <i class="fas fa-list-ol"></i>
+                    <span>View Priority Queue</span>
+                </a>
+                <a href="{{ url_for('cancellation_management') }}" class="action-btn action-cancel">
+                    <i class="fas fa-undo"></i>
+                    <span>Cancellations</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Dashboard Grid: Bookings + Tables -->
+        <div class="dashboard-grid">
+            <!-- Recent Bookings -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-list"></i> All Bookings</h3>
+                    <span class="card-badge">{{ bookings|length }}</span>
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Customer</th>
+                                <th>Guests</th>
+                                <th>Type</th>
+                                <th>Priority</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Limit</th>
+                                <th>Table</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for b in bookings %}
+                            <tr>
+                                <td>#{{ b.id }}</td>
+                                <td>{{ b.customer_name }}</td>
+                                <td>{{ b.people_count }}</td>
+                                <td><span class="badge badge-{{ b.booking_type|lower|replace('-', '') }}">{{
+                                        b.booking_type }}</span></td>
+                                <td>
+                                    <span class="priority-badge priority-{{ b.priority }}">P{{ b.priority }}</span>
+                                </td>
+                                <td>{{ b.booking_date }}</td>
+                                <td>{{ b.booking_time }}</td>
+                                <td>{{ b.time_limit }}</td>
+                                <td>{% if b.table_number %}#{{ b.table_number }}{% else %}<span
+                                        class="text-muted">—</span>{% endif %}</td>
+                                <td><span class="status-badge status-{{ b.status|lower }}">{{ b.status }}</span></td>
+                                <td>
+                                    {% if b.status not in ['Cancelled'] %}
+                                    <form method="POST" action="{{ url_for('cancel_booking_route', booking_id=b.id) }}"
+                                        style="display:inline" onsubmit="return confirm('Cancel booking #{{ b.id }}?')">
+                                        <button type="submit" class="btn-icon btn-icon-danger" title="Cancel"><i
+                                                class="fas fa-ban"></i></button>
+                                    </form>
+                                    {% endif %}
+                                    <form method="POST" action="{{ url_for('delete_booking_route', booking_id=b.id) }}"
+                                        style="display:inline"
+                                        onsubmit="return confirm('Delete booking #{{ b.id }} permanently?')">
+                                        <button type="submit" class="btn-icon btn-icon-muted" title="Delete"><i
+                                                class="fas fa-trash"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% if not bookings %}
+                            <tr>
+                                <td colspan="11" class="text-center text-muted">No bookings yet</td>
+                            </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tables Management -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-chair"></i> Restaurant Tables</h3>
+                    <span class="card-badge">{{ tables|length }}</span>
+                </div>
+                <div class="tables-grid">
+                    {% for t in tables %}
+                    <div class="table-tile {{ 'occupied' if not t.is_available else 'available' }}">
+                        <div class="table-tile-icon">
+                            <i class="fas fa-{{ 'lock' if not t.is_available else 'chair' }}"></i>
+                        </div>
+                        <div class="table-tile-info">
+                            <strong>Table #{{ t.table_number }}</strong>
+                            <span>{{ t.capacity }} seats</span>
+                            <span class="table-status">{{ 'Occupied' if not t.is_available else 'Available' }}</span>
+                        </div>
+                        {% if t.is_available %}
+                        <form method="POST" action="{{ url_for('delete_table_route', table_id=t.id) }}"
+                            onsubmit="return confirm('Delete Table #{{ t.table_number }}?')">
+                            <button type="submit" class="btn-icon btn-icon-danger btn-sm" title="Delete Table">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Add Table Form -->
+                <div class="add-table-form">
+                    <h4><i class="fas fa-plus-circle"></i> Add New Table</h4>
+                    <form method="POST" action="{{ url_for('add_table_route') }}" class="inline-form">
+                        <input type="number" name="table_number" placeholder="Table #" required min="1"
+                            class="input-sm">
+                        <select name="capacity" class="input-sm">
+                            <option value="2">2 Seats</option>
+                            <option value="4">4 Seats</option>
+                            <option value="6">6 Seats</option>
+                            <option value="8">8 Seats</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            <i class="fas fa-plus"></i> Add
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,306 @@
+{% extends 'base.html' %}
+{% block title %}SMSV Restaurant – Experience the Tradition of India{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero" id="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-particles" id="hero-particles"></div>
+    <img src="{{ url_for('static', filename='images/hero.jpg') }}" alt="Indian Cuisine" class="hero-bg">
+    <div class="hero-content">
+        <div class="hero-badge">
+            <i class="fas fa-star"></i> Premium Indian Dining
+        </div>
+        <h1 class="hero-title">Experience the<br><span class="hero-highlight">Tradition of India</span></h1>
+        <p class="hero-subtitle">Reserve Your Table Today</p>
+        <p class="hero-desc">Savor authentic flavors curated by master chefs, in a setting that celebrates India's rich
+            culinary heritage.</p>
+        <div class="hero-cta">
+            <a href="{{ url_for('book_table') }}" class="btn btn-primary btn-lg">
+                <i class="fas fa-utensils"></i> Book a Table
+            </a>
+            <a href="#menu-preview" class="btn btn-outline btn-lg">
+                <i class="fas fa-book-open"></i> Explore Menu
+            </a>
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <span class="hero-stat-number" data-count="500">0</span>+
+                <span class="hero-stat-label">Happy Guests</span>
+            </div>
+            <div class="hero-stat">
+                <span class="hero-stat-number" data-count="50">0</span>+
+                <span class="hero-stat-label">Dishes</span>
+            </div>
+            <div class="hero-stat">
+                <span class="hero-stat-number" data-count="15">0</span>+
+                <span class="hero-stat-label">Years</span>
+            </div>
+        </div>
+    </div>
+    <div class="hero-scroll">
+        <a href="#features"><i class="fas fa-chevron-down"></i></a>
+    </div>
+</section>
+
+<!-- Features Section -->
+<!--section class="features" id="features">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Why Choose Us</span>
+            <h2 class="section-title">Smart Booking <span class="text-gold">Technology</span></h2>
+            <p class="section-subtitle">Our intelligent system uses advanced algorithms to give you the best dining experience</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card" data-aos="fade-up">
+                <div class="feature-icon">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <h3>Priority Scheduling</h3>
+                <p>VIP guests get top priority. Our OS-inspired scheduling ensures the most important reservations are handled first.</p>
+                <span class="feature-tag">OS Concept</span>
+            </div>
+            <div class="feature-card" data-aos="fade-up" data-delay="100">
+                <div class="feature-icon">
+                    <i class="fas fa-th-large"></i>
+                </div>
+                <h3>Greedy Allocation</h3>
+                <p>Tables are allocated using a Greedy Algorithm — the smallest suitable table is assigned to minimize waste.</p>
+                <span class="feature-tag">AOA Concept</span>
+            </div>
+            <div class="feature-card" data-aos="fade-up" data-delay="200">
+                <div class="feature-icon">
+                    <i class="fas fa-undo-alt"></i>
+                </div>
+                <h3>Backtracking</h3>
+                <p>When a booking is cancelled, our backtracking algorithm finds the best replacement from the waiting queue.</p>
+                <span class="feature-tag">AOA Concept</span>
+            </div>
+            <div class="feature-card" data-aos="fade-up" data-delay="300">
+                <div class="feature-icon">
+                    <i class="fas fa-stream"></i>
+                </div>
+                <h3>Queue Management</h3>
+                <p>All bookings enter a priority-based queue, ensuring fair and efficient service for every guest.</p>
+                <span class="feature-tag">Data Structure</span>
+            </div>
+        </div>
+    </div>
+</section-->
+
+<!-- Reservation CTA -->
+<section class="reservation-cta">
+    <div class="container">
+        <div class="cta-card">
+            <div class="cta-bg">
+                <img src="{{ url_for('static', filename='images/interior.jpg') }}" alt="Restaurant Interior">
+                <div class="cta-overlay"></div>
+            </div>
+            <div class="cta-content">
+                <span class="section-tag">Reserve Now</span>
+                <h2>Your Table Awaits</h2>
+                <p>Choose from VIP, Pre-Booking, or On-Spot reservations. Each tier offers unique privileges tailored to
+                    your needs.</p>
+                <div class="cta-tiers">
+                    <div class="tier-badge tier-vip">
+                        <i class="fas fa-crown"></i>
+                        <span>VIP</span>
+                        <small>Unlimited Time</small>
+                    </div>
+                    <div class="tier-badge tier-pre">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Pre-Booking</span>
+                        <small>2 Hours</small>
+                    </div>
+                    <div class="tier-badge tier-spot">
+                        <i class="fas fa-clock"></i>
+                        <span>On-Spot</span>
+                        <small>1 Hour</small>
+                    </div>
+                </div>
+                <a href="{{ url_for('book_table') }}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-calendar-plus"></i> Make a Reservation
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Menu Preview -->
+<section class="menu-preview" id="menu-preview">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Our Menu</span>
+            <h2 class="section-title">Culinary <span class="text-gold">Masterpieces</span></h2>
+            <p class="section-subtitle">A curated selection of India's most beloved dishes, prepared with passion</p>
+        </div>
+        <div class="menu-grid">
+            <div class="menu-card">
+                <div class="menu-card-img">
+                    <img src="{{ url_for('static', filename='images/gallery1.jpg') }}" alt="Hyderabadi Biryani">
+                    <div class="menu-card-badge">Chef's Special</div>
+                </div>
+                <div class="menu-card-body">
+                    <h3>Hyderabadi Biryani</h3>
+                    <p>Aromatic basmati rice layered with tender meat, saffron, and royal spices</p>
+                    <div class="menu-card-footer">
+                        <span class="menu-price">₹550</span>
+                        <div class="menu-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>4.8</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-card-img">
+                    <img src="{{ url_for('static', filename='images/gallery2.jpg') }}" alt="Tandoori Platter">
+                    <div class="menu-card-badge">Popular</div>
+                </div>
+                <div class="menu-card-body">
+                    <h3>Royal Tandoori Platter</h3>
+                    <p>Seekh kebabs, tikka, and tandoori chicken served sizzling hot</p>
+                    <div class="menu-card-footer">
+                        <span class="menu-price">₹750</span>
+                        <div class="menu-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>5.0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-card-img">
+                    <img src="{{ url_for('static', filename='images/gallery3.jpg') }}" alt="Butter Chicken">
+                    <div class="menu-card-badge">Signature</div>
+                </div>
+                <div class="menu-card-body">
+                    <h3>Butter Chicken Royale</h3>
+                    <p>Creamy tomato gravy with succulent chicken, served with garlic naan</p>
+                    <div class="menu-card-footer">
+                        <span class="menu-price">₹480</span>
+                        <div class="menu-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Gallery Section -->
+<section class="gallery-section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Gallery</span>
+            <h2 class="section-title">A Feast for <span class="text-gold">the Eyes</span></h2>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item gallery-large">
+                <img src="{{ url_for('static', filename='images/hero.jpg') }}" alt="Indian Cuisine Spread">
+                <div class="gallery-overlay"><span>Our Grand Thali</span></div>
+            </div>
+            <div class="gallery-item">
+                <img src="{{ url_for('static', filename='images/interior.jpg') }}" alt="Restaurant Interior">
+                <div class="gallery-overlay"><span>Elegant Ambiance</span></div>
+            </div>
+            <div class="gallery-item">
+                <img src="{{ url_for('static', filename='images/gallery1.jpg') }}" alt="Biryani">
+                <div class="gallery-overlay"><span>Signature Biryani</span></div>
+            </div>
+            <div class="gallery-item">
+                <img src="{{ url_for('static', filename='images/gallery2.jpg') }}" alt="Tandoori">
+                <div class="gallery-overlay"><span>Tandoori Specials</span></div>
+            </div>
+            <div class="gallery-item">
+                <img src="{{ url_for('static', filename='images/gallery3.jpg') }}" alt="Butter Chicken">
+                <div class="gallery-overlay"><span>Butter Chicken</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact-section" id="contact">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Get in Touch</span>
+            <h2 class="section-title">Visit <span class="text-gold">Us</span></h2>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-card">
+                <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                <h3>Location</h3>
+                <p>123 Spice Lane, Andheri West<br>Mumbai, Maharashtra 400053</p>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+                <h3>Phone</h3>
+                <p>+91 98765 43210<br>+91 22 2634 5678</p>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                <h3>Email</h3>
+                <p>info@smsvrestaurant.com<br>reservations@smsvrestaurant.com</p>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon"><i class="fas fa-clock"></i></div>
+                <h3>Timings</h3>
+                <p>Mon – Fri: 11 AM – 11 PM<br>Weekends: 10 AM – 12 AM</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Animate stat counters
+    function animateCounters() {
+        document.querySelectorAll('.hero-stat-number').forEach(counter => {
+            const target = parseInt(counter.dataset.count);
+            const duration = 2000;
+            const step = target / (duration / 16);
+            let current = 0;
+            const timer = setInterval(() => {
+                current += step;
+                if (current >= target) { current = target; clearInterval(timer); }
+                counter.textContent = Math.floor(current);
+            }, 16);
+        });
+    }
+    // Intersection Observer for animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.feature-card, .menu-card, .gallery-item, .contact-card').forEach(el => {
+        observer.observe(el);
+    });
+    // Start counter animation when hero is visible
+    const heroObserver = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+            animateCounters();
+            heroObserver.disconnect();
+        }
+    });
+    heroObserver.observe(document.getElementById('hero'));
+</script>
+{% endblock %}

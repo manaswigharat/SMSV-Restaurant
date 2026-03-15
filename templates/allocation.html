@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% block title %}Table Allocation – SMSV Restaurant{% endblock %}
+
+{% block content %}
+<section class="page-header page-header-sm">
+    <div class="page-header-bg">
+        <img src="{{ url_for('static', filename='images/interior.jpg') }}" alt="Interior">
+        <div class="page-header-overlay"></div>
+    </div>
+    <div class="container">
+        <h1>Table <span class="text-gold">Allocation</span></h1>
+        <p><!--Greedy Algorithm -->Assigns the smallest available table that fits the group</p>
+    </div>
+</section>
+
+<section class="allocation-section">
+    <div class="container">
+        <!-- Algorithm Explanation -->
+        <!--div class="algo-explainer">
+            <div class="algo-explainer-header">
+                <i class="fas fa-project-diagram"></i>
+                <h3>Greedy Algorithm (AOA Concept)</h3>
+            </div>
+            <p>The system uses a <strong>Greedy Algorithm</strong> for table allocation. The greedy choice: always assign the <em>smallest available table</em> that can accommodate the group.</p>
+            <div class="algo-example">
+                <div class="algo-example-item">
+                    <span class="algo-input">3 guests →</span>
+                    <span class="algo-output">4-seat table</span>
+                    <span class="algo-reason">(smallest fit)</span>
+                </div>
+                <div class="algo-example-item">
+                    <span class="algo-input">5 guests →</span>
+                    <span class="algo-output">6-seat table</span>
+                    <span class="algo-reason">(smallest fit)</span>
+                </div>
+                <div class="algo-example-item">
+                    <span class="algo-input">2 guests →</span>
+                    <span class="algo-output">2-seat table</span>
+                    <span class="algo-reason">(perfect fit)</span>
+                </div>
+            </div>
+        </div-->
+
+        {% if allocated %}
+        <!-- Allocation Results -->
+        <div class="dashboard-card allocation-results">
+            <div class="card-header card-header-success">
+                <h3><i class="fas fa-check-circle"></i> Allocation Results</h3>
+                <span class="card-badge card-badge-success">{{ allocated|length }} allocated</span>
+            </div>
+            <div class="allocation-cards">
+                {% for a in allocated %}
+                <div class="alloc-card">
+                    <div class="alloc-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="alloc-info">
+                        <strong>{{ a.customer_name }}</strong>
+                        <span>{{ a.people_count }} guests → Table #{{ a.table_number }} ({{ a.table_capacity }}
+                            seats)</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="allocation-grid">
+            <!-- Waiting Bookings -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-hourglass-half"></i> Waiting Bookings</h3>
+                    <span class="card-badge">{{ waiting|length }}</span>
+                </div>
+                {% if waiting %}
+                <div class="waiting-list">
+                    {% for w in waiting %}
+                    <div class="waiting-item">
+                        <div class="waiting-priority">
+                            <span class="priority-badge priority-{{ w.priority }}">P{{ w.priority }}</span>
+                        </div>
+                        <div class="waiting-info">
+                            <strong>{{ w.customer_name }}</strong>
+                            <span>{{ w.people_count }} guests • {{ w.booking_type }} • {{ w.booking_date }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="empty-state">
+                    <i class="fas fa-check-double"></i>
+                    <p>No waiting bookings</p>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Table Status -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-chair"></i> Table Status</h3>
+                </div>
+                <div class="tables-grid tables-grid-sm">
+                    {% for t in tables %}
+                    <div class="table-tile {{ 'occupied' if not t.is_available else 'available' }}">
+                        <div class="table-tile-icon">
+                            <i class="fas fa-{{ 'lock' if not t.is_available else 'chair' }}"></i>
+                        </div>
+                        <div class="table-tile-info">
+                            <strong>#{{ t.table_number }}</strong>
+                            <span>{{ t.capacity }} seats</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Run Allocation Button -->
+        <div class="allocation-action">
+            <form method="POST" action="{{ url_for('table_allocation') }}">
+                <button type="submit" class="btn btn-primary btn-xl">
+                    <i class="fas fa-play-circle"></i> Run Greedy Allocation Algorithm
+                </button>
+            </form>
+            <p class="action-hint">This will assign tables to all waiting bookings using the Greedy Algorithm</p>
+        </div>
+
+        <div class="page-actions">
+            <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

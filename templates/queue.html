@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block title %}Booking Queue – SMSV Restaurant{% endblock %}
+
+{% block content %}
+<section class="page-header page-header-sm">
+    <div class="page-header-bg">
+        <img src="{{ url_for('static', filename='images/interior.jpg') }}" alt="Interior">
+        <div class="page-header-overlay"></div>
+    </div>
+    <div class="container">
+        <h1>Booking <span class="text-gold">Queue</span></h1>
+        <p>Priority-sorted booking queue — VIP bookings are processed first</p>
+    </div>
+</section>
+
+<section class="queue-section">
+    <div class="container">
+        <!-- Algorithm Explanation -->
+        <!--div class="algo-explainer">
+            <div class="algo-explainer-header">
+                <i class="fas fa-microchip"></i>
+                <h3>Priority Scheduling Algorithm (OS Concept)</h3>
+            </div>
+            <p>Bookings are sorted using <strong>Priority Scheduling</strong> — a CPU scheduling algorithm from Operating Systems. Each booking type is assigned a priority level:</p>
+            <div class="priority-legend">
+                <div class="legend-item">
+                    <span class="priority-badge priority-1">P1</span>
+                    <span>VIP – Highest Priority (processed first)</span>
+                </div>
+                <div class="legend-item">
+                    <span class="priority-badge priority-2">P2</span>
+                    <span>Pre-Booking – Medium Priority</span>
+                </div>
+                <div class="legend-item">
+                    <span class="priority-badge priority-3">P3</span>
+                    <span>On-Spot – Lowest Priority (processed last)</span>
+                </div>
+            </div>
+        </div-->
+
+        <!-- Queue Table -->
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h3><i class="fas fa-list-ol"></i> Priority Queue</h3>
+                <span class="card-badge">{{ bookings|length }} bookings</span>
+            </div>
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Queue #</th>
+                            <th>ID</th>
+                            <th>Customer</th>
+                            <th>Guests</th>
+                            <th>Booking Type</th>
+                            <th>Priority</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Time Limit</th>
+                            <th>Table</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for b in bookings %}
+                        <tr class="queue-row {{ 'row-vip' if b.booking_type == 'VIP' else '' }}">
+                            <td><span class="queue-number">{{ loop.index }}</span></td>
+                            <td>#{{ b.id }}</td>
+                            <td><strong>{{ b.customer_name }}</strong></td>
+                            <td>{{ b.people_count }}</td>
+                            <td>
+                                <span class="badge badge-{{ b.booking_type|lower|replace('-', '') }}">
+                                    {% if b.booking_type == 'VIP' %}👑{% elif b.booking_type == 'Pre-Booking' %}📅{%
+                                    else %}⏰{% endif %}
+                                    {{ b.booking_type }}
+                                </span>
+                            </td>
+                            <td><span class="priority-badge priority-{{ b.priority }}">P{{ b.priority }}</span></td>
+                            <td>{{ b.booking_date }}</td>
+                            <td>{{ b.booking_time }}</td>
+                            <td>{{ b.time_limit }}</td>
+                            <td>{% if b.table_number %}#{{ b.table_number }} ({{ b.table_capacity }} seats){% else
+                                %}<span class="text-muted">Pending</span>{% endif %}</td>
+                            <td><span class="status-badge status-{{ b.status|lower }}">{{ b.status }}</span></td>
+                        </tr>
+                        {% endfor %}
+                        {% if not bookings %}
+                        <tr>
+                            <td colspan="11" class="text-center text-muted">Queue is empty</td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="page-actions">
+            <a href="{{ url_for('table_allocation') }}" class="btn btn-primary">
+                <i class="fas fa-th-large"></i> Run Greedy Allocation
+            </a>
+            <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
