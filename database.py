@@ -79,7 +79,7 @@ def init_db():
     if cursor.fetchone()[0] == 0:
         cursor.execute(
             "INSERT INTO admin (username, password) VALUES (?, ?)",
-            ('admin', 'admin123')
+            ('admin', 'smsv1147')
         )
 
     conn.commit()
