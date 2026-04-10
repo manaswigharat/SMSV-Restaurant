@@ -58,6 +58,18 @@ SMSV-Restaurant/
     ├── css/style.css       # Premium Indian theme CSS
     └── images/             # Logo, hero, gallery images
 ```
+📄 Pages
+```bash
+Page	URL	Description
+Home	/	Hero banner, menu, gallery, contact
+Book Table	/book	Booking form with type selection
+Confirmation	/confirmation/<id>	Booking details & cancel option
+Admin Login	/admin/login	Secure admin authentication
+Dashboard	/admin/dashboard	Stats, bookings, table management
+Queue	/admin/queue	Priority-sorted booking queue
+Allocation	/admin/allocate	Run greedy algorithm
+Cancellation	/admin/cancellation	Cancel & backtrack replacement
+```
 
 ## ⚙️ Installation & Setup
 ```bash
