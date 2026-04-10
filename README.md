@@ -23,11 +23,11 @@ Database: SQLite
 Deployment: Render
 
 ## 📊 System Workflow
-User visits website
-Selects preferred time slot
-Enters booking details
-Reservation stored in database
-Confirmation displayed
+1. User visits website
+2. Selects preferred time slot
+3. Enters booking details
+4. Reservation stored in database
+5. Confirmation displayed
 
 ## 📈 Project Impact
 Reduced chances of manual booking errors
