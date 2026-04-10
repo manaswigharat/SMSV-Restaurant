@@ -1,87 +1,40 @@
-# 🍛 SMSV Restaurant – Smart Priority Based Booking System
+## Reservation and Scheduling Management System for SMSV Restaurant 🍽️
+A web-based restaurant reservation system built using Flask and SQLite that enables real-time table booking, admin-side reservation management, and intelligent table allocation.
 
-A **full-stack restaurant reservation platform** that demonstrates **Operating System concepts** and **Algorithm Design (AOA)** in a real-world application. Built as a college capstone project.
+🚀 Live Demo:
+https://smsv-restaurant-3.onrender.com/
 
-![Python](https://img.shields.io/badge/Python-3.x-blue?logo=python)
-![Flask](https://img.shields.io/badge/Flask-3.0-green?logo=flask)
-![SQLite](https://img.shields.io/badge/SQLite-Database-orange?logo=sqlite)
-![License](https://img.shields.io/badge/License-MIT-yellow)
+## 🔥 Key Features
+Real-time table booking system
+Admin dashboard for managing reservations
+Prevention of double bookings
+Efficient scheduling of tables
+User-friendly interface
 
----
+## 🧠 Algorithms Used
+Priority Scheduling: Handles booking requests based on priority
+Greedy Allocation: Assigns best-fit available table quickly
+Backtracking: Reassigns tables efficiently after cancellations
 
-## 🌟 Features
+## 🛠 Tech Stack
+Frontend: HTML, CSS, JavaScript
+Backend: Flask (Python)
+Database: SQLite
+Deployment: Render
 
-- **Customer Interface** – Book tables with VIP, Pre-Booking, or On-Spot reservations
-- **Admin Dashboard** – Manage bookings, tables, and view statistics
-- **Priority Scheduling (OS Concept)** – VIP gets highest priority, On-Spot gets lowest
-- **Greedy Table Allocation (AOA)** – Assigns the smallest available table that fits the group
-- **Backtracking Cancellation (AOA)** – Automatically finds replacement bookings on cancellation
-- **Queue Management** – Priority-sorted booking queue
-- **Indian Restaurant UI** – Premium dark theme with gold/saffron accents
+## 📊 System Workflow
+User visits website
+Selects preferred time slot
+Enters booking details
+Reservation stored in database
+Confirmation displayed
 
----
-
-## 🔬 Algorithms Implemented
-
-### 1. Priority Scheduling (OS Concept)
-| Booking Type | Priority Level | Time Limit |
-|---|---|---|
-| VIP | P1 (Highest) | Unlimited |
-| Pre-Booking | P2 (Medium) | 2 Hours |
-| On-Spot | P3 (Lowest) | 1 Hour |
-
-### 2. Greedy Algorithm – Table Allocation
-- Sorts waiting bookings by priority
-- For each booking, assigns the **smallest available table** that fits the group
-- Minimizes resource waste (greedy choice property)
-
-### 3. Backtracking Algorithm – Cancellation Replacement
-- When a booking is cancelled, recursively searches the waiting queue
-- Checks constraints: table capacity, date match, time compatibility
-- Assigns the freed table to the first valid replacement
-- Notifies the upgraded customer
-
----
-
-## 🛠️ Tech Stack
-
-| Layer | Technology |
-|---|---|
-| Frontend | HTML, CSS, JavaScript |
-| Backend | Python Flask |
-| Database | SQLite |
-| Fonts | Google Fonts (Playfair Display, Inter) |
-| Icons | Font Awesome 6 |
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Python 3.x installed
-
-### Installation
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/YOUR_USERNAME/SMSV-Restaurant.git
-cd SMSV-Restaurant
-
-# 2. Install dependencies
-pip install -r requirements.txt
-
-# 3. Run the application
-python app.py
-
-# 4. Open in browser
-# http://127.0.0.1:5000
-```
-
----
+## 📈 Project Impact
+Reduced chances of manual booking errors
+Eliminated double booking issues
+Improved table utilization using algorithm-based allocation
 
 ## 📁 Project Structure
-
-```
 SMSV-Restaurant/
 ├── app.py              # Flask application (routes)
 ├── database.py         # SQLite setup & initialization
@@ -103,34 +56,21 @@ SMSV-Restaurant/
 └── static/
     ├── css/style.css       # Premium Indian theme CSS
     └── images/             # Logo, hero, gallery images
-```
 
----
+## 📷 Screenshots
+Customer Registration Page (CRP)
 
-## 📸 Screenshots
 
-### Homepage
-The landing page features a hero banner, Indian cuisine gallery, and reservation options.
+Booking Received Page (BRP)
 
-### Booking Form
-Customers select their booking type (VIP, Pre-Booking, On-Spot), date, and time.
 
-### Admin Dashboard
-Real-time statistics, booking management, and table administration.
+Booking Queue (BQ)
 
----
 
-## 📄 Pages
+Table Allocation Results (TAR)
 
-| Page | URL | Description |
-|---|---|---|
-| Home | `/` | Hero banner, menu, gallery, contact |
-| Book Table | `/book` | Booking form with type selection |
-| Confirmation | `/confirmation/<id>` | Booking details & cancel option |
-| Admin Login | `/admin/login` | Secure admin authentication |
-| Dashboard | `/admin/dashboard` | Stats, bookings, table management |
-| Queue | `/admin/queue` | Priority-sorted booking queue |
-| Allocation | `/admin/allocate` | Run greedy algorithm |
-| Cancellation | `/admin/cancellation` | Cancel & backtrack replacement |
-
----
+## ⚙️ Installation & Setup
+git clone https://github.com/Sahas-2417/Reservation_Scheduling_Management_System_for_SMSV_Restaurant.git
+cd Reservation_Scheduling_Management_System_for_SMSV_Restaurant
+pip install -r requirements.txt
+python app.py
