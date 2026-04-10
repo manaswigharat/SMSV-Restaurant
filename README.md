@@ -30,9 +30,9 @@ https://smsv-restaurant-3.onrender.com/
 5. Confirmation displayed
 
 ## 📈 Project Impact
-Reduced chances of manual booking errors
-Eliminated double booking issues
-Improved table utilization using algorithm-based allocation
+- Reduced chances of manual booking errors
+- Eliminated double booking issues
+- Improved table utilization using algorithm-based allocation
 
 ## 📁 Project Structure
 SMSV-Restaurant/
