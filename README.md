@@ -5,11 +5,11 @@ A web-based restaurant reservation system built using Flask and SQLite that enab
 https://smsv-restaurant-3.onrender.com/
 
 ## 🔥 Key Features
-Real-time table booking system
-Admin dashboard for managing reservations
-Prevention of double bookings
-Efficient scheduling of tables
-User-friendly interface
+- Real-time table booking system
+- Admin dashboard for managing reservations
+- Prevention of double bookings
+- Efficient scheduling of tables
+- User-friendly interface
 
 ## 🧠 Algorithms Used
 - Priority Scheduling: Handles booking requests based on priority
