@@ -77,10 +77,6 @@ python app.py
 # http://127.0.0.1:5000
 ```
 
-### Admin Login
-- **Username:** `admin`
-- **Password:** `admin123`
-
 ---
 
 ## 📁 Project Structure
