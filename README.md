@@ -59,18 +59,6 @@ SMSV-Restaurant/
     └── images/             # Logo, hero, gallery images
 ```
 
-## 📷 Screenshots
-Customer Registration Page (CRP)
-
-
-Booking Received Page (BRP)
-
-
-Booking Queue (BQ)
-
-
-Table Allocation Results (TAR)
-
 ## ⚙️ Installation & Setup
 ```bash
 git clone https://github.com/Sahas-2417/Reservation_Scheduling_Management_System_for_SMSV_Restaurant.git
