@@ -35,6 +35,7 @@ https://smsv-restaurant-3.onrender.com/
 - Improved table utilization using algorithm-based allocation
 
 ## 📁 Project Structure
+```bash
 SMSV-Restaurant/
 ├── app.py              # Flask application (routes)
 ├── database.py         # SQLite setup & initialization
@@ -56,6 +57,7 @@ SMSV-Restaurant/
 └── static/
     ├── css/style.css       # Premium Indian theme CSS
     └── images/             # Logo, hero, gallery images
+```
 
 ## 📷 Screenshots
 Customer Registration Page (CRP)
@@ -70,7 +72,9 @@ Booking Queue (BQ)
 Table Allocation Results (TAR)
 
 ## ⚙️ Installation & Setup
+```bash
 git clone https://github.com/Sahas-2417/Reservation_Scheduling_Management_System_for_SMSV_Restaurant.git
 cd Reservation_Scheduling_Management_System_for_SMSV_Restaurant
 pip install -r requirements.txt
 python app.py
+```
