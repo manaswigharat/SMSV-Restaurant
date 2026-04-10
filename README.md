@@ -73,8 +73,8 @@ SMSV-Restaurant/
 
 ## ⚙️ Installation & Setup
 ```bash
-git clone https://github.com/Sahas-2417/Reservation_Scheduling_Management_System_for_SMSV_Restaurant.git
-cd Reservation_Scheduling_Management_System_for_SMSV_Restaurant
+git clone https://github.com/manaswigharat/SMSV-Restaurant.git
+cd SMSV-Restaurant
 pip install -r requirements.txt
 python app.py
 ```
