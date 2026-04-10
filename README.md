@@ -12,15 +12,15 @@ Efficient scheduling of tables
 User-friendly interface
 
 ## 🧠 Algorithms Used
-Priority Scheduling: Handles booking requests based on priority
-Greedy Allocation: Assigns best-fit available table quickly
-Backtracking: Reassigns tables efficiently after cancellations
+- Priority Scheduling: Handles booking requests based on priority
+- Greedy Allocation: Assigns best-fit available table quickly
+- Backtracking: Reassigns tables efficiently after cancellations
 
 ## 🛠 Tech Stack
-Frontend: HTML, CSS, JavaScript
-Backend: Flask (Python)
-Database: SQLite
-Deployment: Render
+- Frontend: HTML, CSS, JavaScript
+- Backend: Flask (Python)
+- Database: SQLite
+- Deployment: Render
 
 ## 📊 System Workflow
 1. User visits website
