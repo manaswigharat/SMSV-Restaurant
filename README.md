@@ -134,13 +134,3 @@ Real-time statistics, booking management, and table administration.
 | Cancellation | `/admin/cancellation` | Cancel & backtrack replacement |
 
 ---
-
-## 👥 Team
-
-**SMSV Restaurant** – College Capstone Project
-
----
-
-## 📜 License
-
-This project is for educational purposes as part of a college capstone demonstration.
